@@ -31,18 +31,19 @@ contract Election is Ownable{
     
     event PoliticalPartyCreated(string _name, string _logoLink);
     event CandidateCreated(string _name, string _logoLink, int16 _partyId, uint32 _pinCode);
-    event VoterAdded(address _id, uint32 _pinCode);
+    event VoterAdded(address _id);
+    event Vote(address _id);
 
-    function changePhase(uint8 _phase) internal {
+    function changePhase(uint8 _phase) private {
         phase = _phase;
     }
     
-    function startVoting() public onlyOwner {
+    function startVoting() external onlyOwner {
         require(phase == 1, "Invalid Phase");
         changePhase(2);
     }
     
-    function stopVoting() public onlyOwner {
+    function stopVoting() external onlyOwner {
         require(phase == 2, "Invalid Phase");
         changePhase(4);
     }
@@ -63,10 +64,10 @@ contract Election is Ownable{
         emit CandidateCreated(_name, _logoLink, _partyId, _pinCode);
     }
     
-    function addVoter(address  _voterAccount ,uint32  _pinCode) external onlyOwner {
+    function addVoter(address _voterAccount ,uint32  _pinCode) external onlyOwner {
         require(phase == 1,"Registration Phase is Over");
         voters[_voterAccount] = Voter(true, _pinCode);
-        emit VoterAdded(_voterAccount, _pinCode);
+        emit VoterAdded(_voterAccount);
     }
     
     function vote(uint16 _candidateId) external{
@@ -78,6 +79,7 @@ contract Election is Ownable{
         Candidate storage myCandidate = districtToCandidates[myVoter.pinCode][_candidateId];
         myCandidate.votes++;
         myVoter.canVote = false;
+        emit Vote(msg.sender);
     }
     
     function computeResult() external onlyOwner{
