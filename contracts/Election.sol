@@ -23,16 +23,27 @@ contract Election is Ownable{
         uint32 pinCode;
     }
     
-    uint8 public phase = 1; // 1 for registration, 2 for voting, 3 for result, 4 when voting is stopped and result not declared
+    uint8 public phase = 1; // 1 for registration, 2 for voting, 3 for result declared
     mapping (address => Voter) voters;
     mapping (uint32 => Candidate[]) public districtToCandidates;
     PoliticalParty[] public parties;
     uint32[] pinCodes;
+    uint public votingPeriod;
     
     event PoliticalPartyCreated(string _name, string _logoLink);
     event CandidateCreated(string _name, string _logoLink, int16 _partyId, uint32 _pinCode);
     event VoterAdded(address _id);
     event Vote(address _id);
+
+    modifier beforeEndTime() {
+        require(phase == 2 && block.timestamp < votingPeriod, "Invalid Phase");
+        _;
+    }
+
+    modifier afterEndTime() {
+        require(phase == 2 && block.timestamp > votingPeriod, "Invalid Phase");
+        _;
+    }
 
     function changePhase(uint8 _phase) private {
         phase = _phase;
@@ -40,12 +51,8 @@ contract Election is Ownable{
     
     function startVoting() external onlyOwner {
         require(phase == 1, "Invalid Phase");
+        votingPeriod = block.timestamp + 1 days;
         changePhase(2);
-    }
-    
-    function stopVoting() external onlyOwner {
-        require(phase == 2, "Invalid Phase");
-        changePhase(4);
     }
 
     function createPoliticalParty(string calldata _name, string calldata _logoLink) external onlyOwner returns(uint) {
@@ -70,20 +77,19 @@ contract Election is Ownable{
         emit VoterAdded(_voterAccount);
     }
     
-    function vote(uint16 _candidateId) external{
-        require(phase == 2, "Voting Phase is Over");
+    function vote(uint16 _candidateId) external beforeEndTime{
         Voter storage myVoter = voters[msg.sender];
-        require(myVoter.canVote == true);
-        require(_candidateId >= 0);
-        require(_candidateId < districtToCandidates[myVoter.pinCode].length);
+        require(myVoter.pinCode > 0, "Voter is not Registered");
+        require(myVoter.canVote, "Voter has already Voted");
+        require(_candidateId >= 0 && _candidateId < districtToCandidates[myVoter.pinCode].length);
         Candidate storage myCandidate = districtToCandidates[myVoter.pinCode][_candidateId];
         myCandidate.votes++;
         myVoter.canVote = false;
         emit Vote(msg.sender);
     }
     
-    function computeResult() external onlyOwner{
-        require(phase == 4, "Invalid Phase");
+    function computeResult() external onlyOwner afterEndTime{
+        require(phase == 2, "Invalid Phase");
         for(uint16 i=0 ; i<pinCodes.length ; i++){
             uint32 currPinCode = pinCodes[i];
             Candidate memory winner = districtToCandidates[currPinCode][0];
