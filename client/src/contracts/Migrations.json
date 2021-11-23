@@ -59,7 +59,7 @@
   "sourceMap": "66:311:1:-;;;218:50;8:9:-1;5:2;;;30:1;27;20:12;5:2;218:50:1;253:10;245:5;;:18;;;;;;;;;;;;;;;;;;66:311;;;;;;",
   "deployedSourceMap": "66:311:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:311:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;90:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;272:103;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;272:103:1;;;;;;;;;;;;;;;;;:::i;:::-;;114:36;;;;:::o;90:20::-;;;;;;;;;;;;;:::o;272:103::-;201:5;;;;;;;;;;;187:19;;:10;:19;;;183:26;;;361:9;334:24;:36;;;;183:26;272:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.21 <0.7.0;\n\ncontract Migrations {\n  address public owner;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    if (msg.sender == owner) _;\n  }\n\n  constructor() public {\n    owner = msg.sender;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}\n",
-  "sourcePath": "F:\\Block Chain\\Grp15-DecentralizedElectionSys\\contracts\\Migrations.sol",
+  "sourcePath": "F:\\Block Chain\\ElectionDapp\\contracts\\Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -958,12 +958,13 @@
     "5777": {
       "events": {},
       "links": {},
-      "address": "0x3c5999357DdED5Aef148F605259c5684113499C4",
-      "transactionHash": "0x5be6bd36dfa5be3b5a5993ebd9530fd6dd6a5b40fc4b06564190299d9f9e78d8"
+      "address": "0x18d957F494d5C7bcFDA592AAA459E21D05C1bafa",
+      "transactionHash": "0x03c441585f7afffbf41284c6614404106c3b259b209e6844e525554d9e47ae1e"
     }
   },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-21T13:27:55.428Z",
+  "updatedAt": "2021-10-31T04:35:54.262Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
