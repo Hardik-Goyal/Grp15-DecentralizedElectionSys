@@ -20,7 +20,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
-    "test": "craco test --env=jsdom --verbose",
+    "test": "craco test --env=jsdom --silent",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
