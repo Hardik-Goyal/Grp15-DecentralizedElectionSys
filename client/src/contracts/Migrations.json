@@ -1,5 +1,6 @@
 {
   "contractName": "Migrations",
+  
   "abi": [
     {
       "inputs": [],
@@ -59,7 +60,7 @@
   "sourceMap": "66:311:1:-;;;218:50;8:9:-1;5:2;;;30:1;27;20:12;5:2;218:50:1;253:10;245:5;;:18;;;;;;;;;;;;;;;;;;66:311;;;;;;",
   "deployedSourceMap": "66:311:1:-;;;;8:9:-1;5:2;;;30:1;27;20:12;5:2;66:311:1;;;;;;;;;;;;;;;;;;;;;;;;;;;;;114:36;;;:::i;:::-;;;;;;;;;;;;;;;;;;;90:20;;;:::i;:::-;;;;;;;;;;;;;;;;;;;;;;;272:103;;;;;;13:2:-1;8:3;5:11;2:2;;;29:1;26;19:12;2:2;272:103:1;;;;;;;;;;;;;;;;;:::i;:::-;;114:36;;;;:::o;90:20::-;;;;;;;;;;;;;:::o;272:103::-;201:5;;;;;;;;;;;187:19;;:10;:19;;;183:26;;;361:9;334:24;:36;;;;183:26;272:103;:::o",
   "source": "// SPDX-License-Identifier: MIT\npragma solidity >=0.4.21 <0.7.0;\n\ncontract Migrations {\n  address public owner;\n  uint public last_completed_migration;\n\n  modifier restricted() {\n    if (msg.sender == owner) _;\n  }\n\n  constructor() public {\n    owner = msg.sender;\n  }\n\n  function setCompleted(uint completed) public restricted {\n    last_completed_migration = completed;\n  }\n}",
-  "sourcePath": "F:\\Block Chain\\Grp15-DecentralizedElectionSys\\contracts\\Migrations.sol",
+  "sourcePath": "/home/abhishek/Documents/Projects/react-projects/Grp15-DecentralizedElectionSys/contracts/Migrations.sol",
   "ast": {
     "absolutePath": "project:/contracts/Migrations.sol",
     "exportedSymbols": {
@@ -954,9 +955,29 @@
     "name": "solc",
     "version": "0.5.16+commit.9c3226ce.Emscripten.clang"
   },
-  "networks": {},
+  "networks": {
+    "3": {
+      "events": {},
+      "links": {},
+      "address": "0x5B6d88f4c434cc255a15F567cCb1c85c62B5C9B5",
+      "transactionHash": "0xcf6ed881697c6d2d3f29575d2b2d0fed4edd8a5468d824c655166fe23b684814"
+    },
+    "4": {
+      "events": {},
+      "links": {},
+      "address": "0x1ca5d2695B5073610D0f2Cb785aE10d584c6e2b3",
+      "transactionHash": "0x6d9f998a47cd96cbe21e74721fbf709476ddb0617477e50735f1dbe915ae5ceb"
+    },
+    "5777": {
+      "events": {},
+      "links": {},
+      "address": "0xdF49606716F7892CbF242d815c5a5a8c2CEaC03F",
+      "transactionHash": "0xdb4ead959e2e8a253b3f76c8a9da330f01b654bb7782dd08719ae014584e8b83"
+    }
+  },
   "schemaVersion": "3.4.3",
-  "updatedAt": "2021-11-23T17:56:03.713Z",
+  "updatedAt": "2021-11-24T12:28:31.331Z",
+  "networkType": "ethereum",
   "devdoc": {
     "methods": {}
   },
